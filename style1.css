@@ -1,0 +1,170 @@
+:root{
+  --bg-0: #06121b;
+  --bg-1: #071628;
+  --panel: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.03);
+  --accent-1: #00d1b2;
+  --accent-2: #00b99a;
+  --danger: #ff6b6b;
+  --button: #0f1724;
+  --button-2: #111827;
+  --button-pressed: #23303b;
+  --text: #e6eef8;
+  --muted: #94a3b8;
+  --shadow: rgba(2,6,23,0.6);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(0,209,178,0.06), transparent 6%), linear-gradient(180deg,var(--bg-0) 0%, var(--bg-1) 100%);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+
+.calculator{
+  width:340px;
+  max-width:100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:16px;
+  padding:20px;
+  box-shadow: 0 12px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+.display{
+  min-height:72px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:center;
+  padding:14px 16px;
+  font-size:1.6rem;
+  color:var(--text);
+  margin-bottom:14px;
+  overflow:hidden;
+}
+
+.display .previous{
+  color:var(--muted);
+  font-size:0.85rem;
+  align-self:flex-end;
+  margin-bottom:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+
+.display .current{
+  font-weight:700;
+  font-size:1.6rem;
+  line-height:1;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:12px;
+}
+
+.btn{
+  background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.03));
+  color:var(--text);
+  border: none;
+  border-radius:12px;
+  padding:16px;
+  font-size:1.05rem;
+  cursor:pointer;
+  transition:transform 0.08s cubic-bezier(.2,.9,.3,1), box-shadow 0.12s ease, background 0.08s;
+  box-shadow: 0 8px 18px rgba(2,6,23,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+}
+
+.btn:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(2,6,23,0.45)}
+.btn:active{transform:translateY(1px); background:var(--button-pressed)}
+.btn:focus{outline:2px solid rgba(0,209,178,0.18); outline-offset:2px}
+
+.btn.operator{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.04);
+  color:var(--accent-1);
+  font-weight:600;
+}
+
+.btn.function{
+  background:transparent;
+  color:var(--muted);
+}
+
+.btn.clear{ color:var(--danger); font-weight:600 }
+
+.btn.equal{
+  background:linear-gradient(180deg,var(--accent-1), var(--accent-2));
+  color:#03221c;
+  font-weight:800;
+  box-shadow: 0 10px 28px rgba(0,209,178,0.12), inset 0 -4px 18px rgba(0,0,0,0.18);
+  grid-column: span 1;
+  transition: transform 0.06s ease, box-shadow 0.08s ease;
+}
+
+.btn.equal:hover{transform:translateY(-2px) scale(1.01); box-shadow:0 18px 36px rgba(0,209,178,0.15)}
+
+/* Make special keys slightly larger */
+.btn.wide{grid-column: span 2}
+
+/* Responsive tweaks */
+@media (min-width:420px){
+  .calculator{width:420px}
+  .display{min-height:92px; font-size:1.9rem}
+  .btn{padding:18px; font-size:1.08rem}
+}
+
+/* Small devices */
+@media (max-width:360px){
+  .calculator{padding:12px}
+  .btn{padding:12px; font-size:1rem}
+  .display{min-height:56px}
+}
+
+/* Accessibility: focus visible */
+:focus{outline:none}
+:focus-visible{outline:2px solid rgba(0,209,178,0.22); outline-offset:2px}
+
+/* Subtle key labels */
+.btn small{display:block; font-size:0.65rem; color:var(--muted); opacity:0.9}
+
+/* Make operators stand out on dark background */
+.btn.operator:hover{background:rgba(0,209,178,0.04)}
+
+/* Add a soft divider between display and buttons */
+.calculator::after{
+  content:"";
+  display:block;
+  height:1px;
+  margin-top:14px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
+}
+
+/* Ensure long numbers scale down slightly */
+.display .current.long{font-size:1.2rem}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .btn, .btn:hover, .btn:active{transition:none}
+}
